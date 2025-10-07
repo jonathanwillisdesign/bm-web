@@ -4,23 +4,41 @@ import type { CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Section from '../../components/Section.astro';
 import Button from '../../components/Button.astro';
+import CaseStudyCard from '../../components/CaseStudyCard.astro';
 
 export async function getStaticPaths() {
   const caseStudies = await getCollection('case-studies');
-  return caseStudies.map((study) => ({
-    params: { slug: study.slug },
-    props: study,
-  }));
+  return caseStudies.map((study, index, array) => {
+    // Calculate next case study (loop to first if at end)
+    const nextIndex = (index + 1) % array.length;
+    const nextStudy = array[nextIndex];
+
+    return {
+      params: { slug: study.slug },
+      props: {
+        study,
+        nextStudy,
+      },
+    };
+  });
 }
 
-type Props = CollectionEntry<'case-studies'>;
+interface Props {
+  study: CollectionEntry<'case-studies'>;
+  nextStudy: CollectionEntry<'case-studies'>;
+}
 
-const study = Astro.props;
+const { study, nextStudy } = Astro.props;
 const { Content } = await study.render();
 
-const services = study.data.services ? await getCollection('services', ({ id }) =>
-  study.data.services?.includes(id)
-) : [];
+// Get all services to map IDs to titles
+const allServices = await getCollection('services');
+const serviceMap = new Map(allServices.map(s => [s.id, s.data.title]));
+
+// Get service titles from IDs
+const serviceTitles = study.data.services?.map(serviceId => {
+  return serviceMap.get(serviceId) || serviceId;
+}) || [];
 
 const teamMembers = study.data.team ? await getCollection('team', ({ id }) =>
   study.data.team?.includes(id)
@@ -53,10 +71,10 @@ const teamMembers = study.data.team ? await getCollection('team', ({ id }) =>
             <span class="body-large-bold">{study.data.duration}</span>
           </div>
         )}
-        {study.data.services && study.data.services.length > 0 && (
+        {serviceTitles.length > 0 && (
           <div class="meta-item">
             <span class="body-medium meta-label">Services</span>
-            <span class="body-large-bold">{study.data.services.join(', ')}</span>
+            <span class="body-large-bold">{serviceTitles.join(', ')}</span>
           </div>
         )}
       </div>
@@ -77,22 +95,6 @@ const teamMembers = study.data.team ? await getCollection('team', ({ id }) =>
       <Content />
     </article>
   </Section>
-
-  {services.length > 0 && (
-    <Section variant="standard">
-      <div class="services-used">
-        <h2 class="heading-medium">Services Used</h2>
-        <div class="services-grid">
-          {services.map((service) => (
-            <div class="service-item">
-              <h3 class="body-large-bold">{service.data.title}</h3>
-              <p class="body-medium">{service.data.shortDescription}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </Section>
-  )}
 
   {teamMembers.length > 0 && (
     <Section variant="light">
@@ -116,8 +118,19 @@ const teamMembers = study.data.team ? await getCollection('team', ({ id }) =>
   )}
 
   <Section variant="standard">
-    <div class="back-navigation">
-      <Button variant="secondary" href="/work">← Back to Work</Button>
+    <div class="next-case-study">
+      <div class="next-case-study__header">
+        <h2 class="heading-medium">Next Project</h2>
+        <Button variant="secondary" href="/work">View All Work</Button>
+      </div>
+      <CaseStudyCard
+        title={nextStudy.data.title}
+        client={nextStudy.data.client}
+        description={nextStudy.data.description}
+        category={nextStudy.data.services?.[0] ? (serviceMap.get(nextStudy.data.services[0]) || nextStudy.data.services[0]) : 'Project'}
+        image={nextStudy.data.heroImage}
+        href={`/work/${nextStudy.slug}`}
+      />
     </div>
   </Section>
 </BaseLayout>
@@ -214,24 +227,11 @@ const teamMembers = study.data.team ? await getCollection('team', ({ id }) =>
     border-radius: var(--radius-medium);
   }
 
-  .services-used,
   .team-section {
     display: flex;
     flex-direction: column;
     gap: var(--content-gap-medium);
     width: 100%;
-  }
-
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: var(--content-gap-medium);
-  }
-
-  .service-item {
-    display: flex;
-    flex-direction: column;
-    gap: var(--content-gap-tiny);
   }
 
   .team-grid {
@@ -265,13 +265,29 @@ const teamMembers = study.data.team ? await getCollection('team', ({ id }) =>
     color: var(--text-alternative);
   }
 
-  .back-navigation {
+  .next-case-study {
+    display: flex;
+    flex-direction: column;
+    gap: var(--content-gap-large);
+    width: 100%;
+  }
+
+  .next-case-study__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     width: 100%;
   }
 
   @media (max-width: 768px) {
     .case-study-meta {
       grid-template-columns: 1fr;
+    }
+
+    .next-case-study__header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--content-gap-medium);
     }
   }
 </style>
