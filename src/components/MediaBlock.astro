@@ -1,4 +1,6 @@
 ---
+import Lottie from './Lottie.astro';
+
 interface Props {
   type: 'image' | 'video' | 'lottie' | 'rive';
   src: string;
@@ -6,6 +8,8 @@ interface Props {
   caption?: string;
   layout?: 'full' | 'contained' | 'wide';
   aspectRatio?: string;
+  loop?: boolean;
+  autoplay?: boolean;
   class?: string;
 }
 
@@ -16,6 +20,8 @@ const {
   caption,
   layout = 'contained',
   aspectRatio,
+  loop = true,
+  autoplay = true,
   class: className
 } = Astro.props;
 ---
@@ -44,12 +50,12 @@ const {
     )}
 
     {type === 'lottie' && (
-      <div
+      <Lottie
+        src={src}
+        loop={loop}
+        autoplay={autoplay}
         class="media-block__lottie"
-        data-lottie-src={src}
-      >
-        <!-- Lottie animation will be loaded here -->
-      </div>
+      />
     )}
 
     {type === 'rive' && (
@@ -111,7 +117,11 @@ const {
     display: block;
   }
 
-  .media-block__lottie,
+  .media-block__lottie {
+    width: 100%;
+    height: 100%;
+  }
+
   .media-block__rive {
     width: 100%;
     height: 100%;

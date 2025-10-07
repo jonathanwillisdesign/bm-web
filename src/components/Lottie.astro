@@ -1,0 +1,91 @@
+---
+interface Props {
+  src: string;
+  loop?: boolean;
+  autoplay?: boolean;
+  speed?: number;
+  class?: string;
+  width?: string;
+  height?: string;
+}
+
+const {
+  src,
+  loop = true,
+  autoplay = true,
+  speed = 1,
+  class: className,
+  width = '100%',
+  height = 'auto',
+} = Astro.props;
+
+// Generate unique ID for this instance
+const containerId = `lottie-${Math.random().toString(36).substr(2, 9)}`;
+---
+
+<div
+  id={containerId}
+  class:list={['lottie-container', className]}
+  data-lottie-src={src}
+  data-lottie-loop={loop}
+  data-lottie-autoplay={autoplay}
+  data-lottie-speed={speed}
+  style={`width: ${width}; height: ${height};`}
+>
+</div>
+
+<script>
+  import lottie from 'lottie-web';
+
+  // Initialize all Lottie animations on the page
+  function initLottie() {
+    const containers = document.querySelectorAll('.lottie-container');
+
+    containers.forEach((container) => {
+      const src = container.getAttribute('data-lottie-src');
+      const loop = container.getAttribute('data-lottie-loop') === 'true';
+      const autoplay = container.getAttribute('data-lottie-autoplay') === 'true';
+      const speed = parseFloat(container.getAttribute('data-lottie-speed') || '1');
+
+      if (src && container instanceof HTMLElement) {
+        // Load the animation
+        const animation = lottie.loadAnimation({
+          container: container,
+          renderer: 'svg',
+          loop: loop,
+          autoplay: autoplay,
+          path: src,
+        });
+
+        // Set playback speed
+        animation.setSpeed(speed);
+
+        // Store animation instance for potential future control
+        (container as any)._lottieInstance = animation;
+      }
+    });
+  }
+
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLottie);
+  } else {
+    initLottie();
+  }
+
+  // Re-initialize on view transitions (for Astro view transitions)
+  document.addEventListener('astro:page-load', initLottie);
+</script>
+
+<style>
+  .lottie-container {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .lottie-container svg {
+    width: 100%;
+    height: 100%;
+  }
+</style>
