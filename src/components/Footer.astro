@@ -1,0 +1,115 @@
+---
+import Button from './Button.astro';
+import Logo from './Logo.astro';
+---
+
+<footer class="footer">
+  <div class="footer__cta">
+    <div class="footer__cta-container">
+      <div class="footer__cta-content">
+        <h2 class="heading-medium">Make the future real.</h2>
+        <p class="body-large">Big or small, every idea starts with a chat.</p>
+      </div>
+      <Button variant="primary" href="/contact">get in touch</Button>
+    </div>
+  </div>
+
+  <div class="footer__main">
+    <div class="footer__main-container">
+      <Logo variant="wordmark" class="footer__wordmark" />
+
+      <div class="footer__divider"></div>
+
+      <div class="footer__links">
+        <div class="footer__links-group">
+          <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
+          <a href="mailto:hello@bigmotive.com">Email</a>
+        </div>
+
+        <div class="footer__links-group">
+          <a href="/">Home</a>
+          <a href="/work">work</a>
+          <a href="/about">About</a>
+          <a href="/legal/privacy-statement">Legal</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    width: 100%;
+  }
+
+  .footer__cta {
+    background-color: var(--surface-alternative);
+    padding: 60px var(--page-margin);
+  }
+
+  .footer__cta-container {
+    max-width: var(--max-content-width);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--content-gap-medium);
+  }
+
+  .footer__cta-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--content-gap-tiny);
+  }
+
+  .footer__main {
+    background-color: var(--surface-solid);
+    color: var(--text-on-solid);
+    padding: var(--section-padding-vertical) var(--page-margin);
+  }
+
+  .footer__main-container {
+    max-width: var(--max-content-width);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--content-gap-medium);
+  }
+
+  :global(.footer__wordmark) {
+    filter: brightness(0) invert(1);
+    max-width: 285px;
+  }
+
+  .footer__divider {
+    width: 100%;
+    height: 2px;
+    background-color: var(--border-standard);
+  }
+
+  .footer__links {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .footer__links-group {
+    display: flex;
+    gap: var(--content-gap-small);
+    font-size: var(--label-medium-size);
+    font-weight: var(--label-medium-weight);
+    line-height: var(--label-medium-line-height);
+    text-transform: uppercase;
+  }
+
+  .footer__links a {
+    color: var(--text-on-solid);
+    transition: opacity var(--transition-fast);
+  }
+
+  .footer__links a:hover {
+    opacity: 0.7;
+  }
+</style>

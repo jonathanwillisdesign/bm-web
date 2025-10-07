@@ -1,16 +1,237 @@
 ---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Section from '../components/Section.astro';
+import TextBlock from '../components/TextBlock.astro';
+import Button from '../components/Button.astro';
+import CaseStudyCard from '../components/CaseStudyCard.astro';
+import ServicesList from '../components/ServicesList.astro';
+import ImageGallery from '../components/ImageGallery.astro';
 
+const featuredCaseStudies = await getCollection('case-studies', ({ data }) => data.featured === true);
+const services = await getCollection('services');
+const featuredTeam = await getCollection('team', ({ data }) => data.featured === true);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+  title="Big Motive - Make the future real"
+  description="We design accessible digital solutions that help people and organisations excel."
+>
+  <Hero />
+
+  <Section variant="solid">
+    <div class="text-with-button">
+      <TextBlock
+        title="Explain the jargon"
+        description="We design accessible digital solutions that help people and organisations excel. We create user-focused products and services that work for everyone."
+      />
+      <Button variant="secondary" href="/about">Read more</Button>
+    </div>
+  </Section>
+
+  <Section variant="accent">
+    <div class="services-section">
+      <div class="services-content">
+        <TextBlock
+          title="Core services"
+          description={`We design accessible digital solutions that help people and organisations excel. We create user-focused products and services that work for everyone, empowering teams to lead innovation and unlock organisational change.
+
+From government transformations to healthcare solutions, we combine research with creative problem-solving to deliver breakthrough experiences.`}
+        />
+      </div>
+
+      <ServicesList />
+    </div>
+  </Section>
+
+  <Section variant="standard">
+    <div class="text-with-button">
+      <TextBlock
+        title="Our work"
+        description="From government and health to enterprise and media, we take on challenges in public services, healthcare, sustainability, and technology. Our work showcases how we use design to cut through complexity and create solutions that work and scale."
+      />
+      <Button variant="secondary" href="/work">Read More</Button>
+    </div>
+  </Section>
+
+  {featuredCaseStudies.length > 0 && (
+    <div class="case-studies-showcase">
+      <div class="case-studies-grid">
+        <div class="case-studies-column case-studies-column--offset">
+          {featuredCaseStudies.slice(0, 1).map((study) => (
+            <CaseStudyCard
+              title={study.data.title}
+              client={study.data.client}
+              description={study.data.description}
+              category={study.data.services?.[0] || 'Service'}
+              image={study.data.heroImage}
+              href={`/work/${study.slug}`}
+            />
+          ))}
+        </div>
+
+        <div class="case-studies-column">
+          {featuredCaseStudies.slice(1, 2).map((study) => (
+            <CaseStudyCard
+              title={study.data.title}
+              client={study.data.client}
+              description={study.data.description}
+              category={study.data.services?.[0] || 'Service'}
+              image={study.data.heroImage}
+              href={`/work/${study.slug}`}
+            />
+          ))}
+        </div>
+      </div>
+
+      {featuredCaseStudies.length > 2 && (
+        <div class="case-studies-full">
+          {featuredCaseStudies.slice(2, 3).map((study) => (
+            <CaseStudyCard
+              title={study.data.title}
+              client={study.data.client}
+              description={study.data.description}
+              category={study.data.services?.[0] || 'Service'}
+              image={study.data.heroImage}
+              href={`/work/${study.slug}`}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  )}
+
+  <Section variant="light">
+    <div class="text-with-button">
+      <TextBlock
+        title="About Us"
+        description="We're an award-winning team of designers, researchers, and strategists based in Belfast and Dublin, working across Ireland, the UK, Europe, and the USA."
+      />
+      <Button variant="secondary" href="/about">Read More</Button>
+    </div>
+  </Section>
+
+  <div class="image-gallery-section">
+    <ImageGallery
+      variant="a"
+      images={[
+        { src: '/images/team/team-1.jpg', alt: 'Team member working' },
+        { src: '/images/team/team-2.jpg', alt: 'Team collaboration' },
+        { src: '/images/team/team-3.jpg', alt: 'Team brainstorming' },
+        { src: '/images/team/team-4.jpg', alt: 'Team celebrating' }
+      ]}
+    />
+  </div>
+
+  <Section variant="light" padding="small">
+    <div class="credentials">
+      <div class="credential-logo">
+        <img src="/images/ccs-logo.png" alt="Crown Commercial Service" />
+      </div>
+      <div class="credential-logo">
+        <img src="/images/living-wage-logo.png" alt="Living Wage Employer" />
+      </div>
+      <div class="credential-logo">
+        <img src="/images/b-corp-logo.png" alt="B Corporation" />
+      </div>
+    </div>
+  </Section>
+</BaseLayout>
+
+<style>
+  .text-with-button {
+    display: flex;
+    flex-direction: column;
+    gap: var(--content-gap-medium);
+    width: 100%;
+    align-items: flex-start;
+  }
+
+  .services-section {
+    display: flex;
+    gap: var(--content-gap-large);
+    width: 100%;
+  }
+
+  .services-content {
+    flex: 1;
+  }
+
+  .case-studies-showcase {
+    width: 100%;
+    padding: 0 var(--page-margin);
+    background-color: var(--surface-standard);
+  }
+
+  .case-studies-grid {
+    max-width: var(--max-content-width);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--content-gap-medium);
+  }
+
+  .case-studies-column {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .case-studies-column--offset {
+    padding-top: 160px;
+  }
+
+  .case-studies-full {
+    max-width: var(--max-content-width);
+    margin: 0 auto;
+    padding: var(--section-padding-vertical) 0;
+  }
+
+  .image-gallery-section {
+    width: 100%;
+    background-color: var(--surface-light);
+    overflow: hidden;
+  }
+
+  .credentials {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 120px;
+  }
+
+  .credential-logo {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    mix-blend-mode: difference;
+  }
+
+  .credential-logo img {
+    max-height: 100%;
+    width: auto;
+    object-fit: contain;
+  }
+
+  @media (max-width: 768px) {
+    .services-section {
+      flex-direction: column;
+      gap: var(--content-gap-medium);
+    }
+
+    .case-studies-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .case-studies-column--offset {
+      padding-top: 0;
+    }
+
+    .credentials {
+      flex-direction: column;
+      height: auto;
+      gap: var(--content-gap-medium);
+    }
+  }
+</style>

@@ -1,0 +1,23 @@
+---
+interface Props {
+  variant?: 'mark' | 'wordmark';
+  class?: string;
+}
+
+const { variant = 'mark', class: className } = Astro.props;
+const logoSrc = variant === 'wordmark' ? '/images/logos/wordmark.svg' : '/images/logos/mark.svg';
+const logoAlt = variant === 'wordmark' ? 'Big Motive' : 'Big Motive Logo';
+---
+
+<img
+  src={logoSrc}
+  alt={logoAlt}
+  class:list={['logo', `logo--${variant}`, className]}
+  style={variant === 'wordmark' ? 'width: 285px; height: auto;' : 'width: 68px; height: 47px;'}
+/>
+
+<style>
+  .logo {
+    display: block;
+  }
+</style>

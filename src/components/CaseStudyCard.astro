@@ -1,0 +1,107 @@
+---
+interface Props {
+  title: string;
+  client: string;
+  description: string;
+  category: string;
+  image?: string;
+  href: string;
+  class?: string;
+}
+
+const { title, client, description, category, image, href, class: className } = Astro.props;
+---
+
+<article class:list={['case-study-card', className]}>
+  <a href={href} class="case-study-card__link">
+    {image && (
+      <div class="case-study-card__image">
+        <img src={image} alt={title} />
+      </div>
+    )}
+
+    <div class="case-study-card__content">
+      <div class="case-study-card__text">
+        <h3 class="case-study-card__client body-large-bold">{client}</h3>
+        <p class="case-study-card__description body-large">{description}</p>
+        <p class="case-study-card__category body-medium">{category}</p>
+      </div>
+
+      <svg class="case-study-card__icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M4 12H20M20 12L14 6M20 12L14 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </a>
+</article>
+
+<style>
+  .case-study-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--content-gap-small);
+    width: 100%;
+  }
+
+  .case-study-card__link {
+    display: contents;
+  }
+
+  .case-study-card__image {
+    width: 100%;
+    height: 636px;
+    overflow: hidden;
+    background-color: var(--surface-light);
+  }
+
+  .case-study-card__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-standard);
+  }
+
+  .case-study-card:hover .case-study-card__image img {
+    transform: scale(1.05);
+  }
+
+  .case-study-card__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .case-study-card__text {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    flex: 1;
+  }
+
+  .case-study-card__client {
+    color: var(--text-standard);
+  }
+
+  .case-study-card__description {
+    color: var(--text-standard);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .case-study-card__category {
+    color: var(--text-alternative);
+  }
+
+  .case-study-card__icon {
+    flex-shrink: 0;
+    color: var(--text-standard);
+    transition: transform var(--transition-fast);
+  }
+
+  .case-study-card:hover .case-study-card__icon {
+    transform: translateX(4px);
+  }
+</style>

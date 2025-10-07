@@ -1,0 +1,32 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  class?: string;
+}
+
+const { title, description, class: className } = Astro.props;
+---
+
+<div class:list={['text-block', className]}>
+  <h2 class="text-block__title heading-medium">{title}</h2>
+  <p class="text-block__description body-large">{description}</p>
+</div>
+
+<style>
+  .text-block {
+    display: flex;
+    flex-direction: column;
+    gap: var(--content-gap-small);
+    width: 100%;
+  }
+
+  .text-block__title {
+    width: 100%;
+  }
+
+  .text-block__description {
+    width: 100%;
+    white-space: pre-wrap;
+  }
+</style>

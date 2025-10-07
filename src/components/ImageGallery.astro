@@ -1,0 +1,188 @@
+---
+interface Props {
+  variant?: 'a' | 'b' | 'c';
+  images: {
+    src: string;
+    alt: string;
+  }[];
+  class?: string;
+}
+
+const { variant = 'a', images, class: className } = Astro.props;
+---
+
+{variant === 'a' && (
+  <div class:list={['image-gallery', 'image-gallery--a', className]}>
+    <div class="image-gallery__item image-gallery__item--1">
+      <img src={images[0]?.src} alt={images[0]?.alt || ''} />
+    </div>
+    <div class="image-gallery__item image-gallery__item--2">
+      <img src={images[1]?.src} alt={images[1]?.alt || ''} />
+    </div>
+    <div class="image-gallery__item image-gallery__item--3">
+      <img src={images[2]?.src} alt={images[2]?.alt || ''} />
+    </div>
+    <div class="image-gallery__item image-gallery__item--4">
+      <img src={images[3]?.src} alt={images[3]?.alt || ''} />
+    </div>
+  </div>
+)}
+
+{variant === 'b' && (
+  <div class:list={['image-gallery', 'image-gallery--b', className]}>
+    <div class="image-gallery__item image-gallery__item--1">
+      <img src={images[0]?.src} alt={images[0]?.alt || ''} />
+    </div>
+    <div class="image-gallery__item image-gallery__item--2">
+      <img src={images[1]?.src} alt={images[1]?.alt || ''} />
+    </div>
+    <div class="image-gallery__item image-gallery__item--3">
+      <img src={images[2]?.src} alt={images[2]?.alt || ''} />
+    </div>
+    <div class="image-gallery__item image-gallery__item--4">
+      <img src={images[3]?.src} alt={images[3]?.alt || ''} />
+    </div>
+  </div>
+)}
+
+{variant === 'c' && (
+  <div class:list={['image-gallery', 'image-gallery--c', className]}>
+    <div class="image-gallery__item image-gallery__item--1">
+      <img src={images[0]?.src} alt={images[0]?.alt || ''} />
+    </div>
+    <div class="image-gallery__item image-gallery__item--2">
+      <img src={images[1]?.src} alt={images[1]?.alt || ''} />
+    </div>
+    <div class="image-gallery__item image-gallery__item--3">
+      <img src={images[2]?.src} alt={images[2]?.alt || ''} />
+    </div>
+    <div class="image-gallery__item image-gallery__item--4">
+      <img src={images[3]?.src} alt={images[3]?.alt || ''} />
+    </div>
+  </div>
+)}
+
+<style>
+  .image-gallery {
+    position: relative;
+    width: 100%;
+    height: 859px;
+    overflow: hidden;
+  }
+
+  .image-gallery__item {
+    position: absolute;
+    overflow: hidden;
+  }
+
+  .image-gallery__item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Variant A */
+  .image-gallery--a .image-gallery__item--1 {
+    left: 0;
+    top: 45.61px;
+    width: 344.121px;
+    height: 362.782px;
+  }
+
+  .image-gallery--a .image-gallery__item--2 {
+    left: 20.35%;
+    right: 43.72%;
+    top: 20.14%;
+    bottom: 6.73%;
+    width: auto;
+    height: auto;
+  }
+
+  .image-gallery--a .image-gallery__item--3 {
+    left: 81.6%;
+    right: -8.4%;
+    top: 44.02%;
+    bottom: 5.48%;
+    width: auto;
+    height: auto;
+  }
+
+  .image-gallery--a .image-gallery__item--4 {
+    left: 867.27px;
+    top: 38px;
+    width: 386px;
+    height: 509px;
+  }
+
+  /* Variant B */
+  .image-gallery--b .image-gallery__item--1 {
+    left: 0;
+    top: 123.84px;
+    width: 366.642px;
+    height: 366.642px;
+  }
+
+  .image-gallery--b .image-gallery__item--2 {
+    left: 42.55%;
+    right: 26.56%;
+    top: 9.94%;
+    bottom: 32.23%;
+    width: auto;
+    height: auto;
+  }
+
+  .image-gallery--b .image-gallery__item--3 {
+    left: 183.32px;
+    top: 457px;
+    width: 642.139px;
+    height: 363.129px;
+  }
+
+  .image-gallery--b .image-gallery__item--4 {
+    left: 1145px;
+    top: 209.73px;
+    width: 366.642px;
+    height: 366.642px;
+  }
+
+  /* Variant C */
+  .image-gallery--c .image-gallery__item--1 {
+    left: -156px;
+    top: 264px;
+    width: 466px;
+    height: 354px;
+  }
+
+  .image-gallery--c .image-gallery__item--2 {
+    left: 16.81%;
+    right: 45.28%;
+    top: 50%;
+    transform: translateY(calc(-50% + 11.5px));
+    width: auto;
+    aspect-ratio: 546 / 622;
+  }
+
+  .image-gallery--c .image-gallery__item--3 {
+    left: 743px;
+    top: 51px;
+    width: 394px;
+    height: 461px;
+  }
+
+  .image-gallery--c .image-gallery__item--4 {
+    left: 1110px;
+    top: 212px;
+    width: 330px;
+    height: 355px;
+  }
+
+  @media (max-width: 768px) {
+    .image-gallery {
+      height: 500px;
+    }
+
+    .image-gallery__item {
+      transform: scale(0.6);
+    }
+  }
+</style>

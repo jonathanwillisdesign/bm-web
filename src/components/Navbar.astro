@@ -1,0 +1,156 @@
+---
+import Logo from './Logo.astro';
+---
+
+<nav class="navbar">
+  <div class="navbar__container">
+    <a href="/" class="navbar__logo">
+      <Logo />
+    </a>
+
+    <button class="navbar__burger" aria-label="Toggle menu" aria-expanded="false">
+      <span class="navbar__burger-line"></span>
+      <span class="navbar__burger-line"></span>
+      <span class="navbar__burger-line"></span>
+    </button>
+
+    <div class="navbar__menu">
+      <a href="/about" class="navbar__link">About us</a>
+      <a href="/work" class="navbar__link">Work</a>
+      <a href="/contact" class="navbar__link">Get in touch</a>
+    </div>
+  </div>
+</nav>
+
+<script>
+  const burger = document.querySelector('.navbar__burger');
+  const menu = document.querySelector('.navbar__menu');
+
+  if (burger && menu) {
+    burger.addEventListener('click', () => {
+      const isExpanded = burger.getAttribute('aria-expanded') === 'true';
+      burger.setAttribute('aria-expanded', (!isExpanded).toString());
+      menu.classList.toggle('navbar__menu--open');
+      document.body.style.overflow = isExpanded ? '' : 'hidden';
+    });
+
+    // Close menu when clicking on a link
+    const links = menu.querySelectorAll('.navbar__link');
+    links.forEach(link => {
+      link.addEventListener('click', () => {
+        burger.setAttribute('aria-expanded', 'false');
+        menu.classList.remove('navbar__menu--open');
+        document.body.style.overflow = '';
+      });
+    });
+  }
+</script>
+
+<style>
+  .navbar {
+    background-color: var(--surface-standard);
+    padding: 20px var(--page-margin);
+    width: 100%;
+  }
+
+  .navbar__container {
+    max-width: var(--max-content-width);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .navbar__logo {
+    display: block;
+    z-index: 101;
+  }
+
+  .navbar__burger {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    z-index: 101;
+  }
+
+  .navbar__burger-line {
+    width: 24px;
+    height: 2px;
+    background-color: var(--text-standard);
+    transition: transform var(--transition-fast), opacity var(--transition-fast);
+  }
+
+  .navbar__burger[aria-expanded="true"] .navbar__burger-line:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  .navbar__burger[aria-expanded="true"] .navbar__burger-line:nth-child(2) {
+    opacity: 0;
+  }
+
+  .navbar__burger[aria-expanded="true"] .navbar__burger-line:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
+  .navbar__menu {
+    display: flex;
+    align-items: center;
+    gap: var(--stack-margin);
+  }
+
+  .navbar__link {
+    font-size: var(--label-medium-size);
+    font-weight: var(--label-medium-weight);
+    line-height: var(--label-medium-line-height);
+    text-transform: uppercase;
+    color: var(--text-standard);
+    transition: opacity var(--transition-fast);
+  }
+
+  .navbar__link:hover {
+    opacity: 0.7;
+  }
+
+  @media (max-width: 768px) {
+    .navbar__burger {
+      display: flex;
+    }
+
+    .navbar__menu {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-color: var(--surface-standard);
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: var(--content-gap-medium);
+      transform: translateX(100%);
+      transition: transform var(--transition-standard);
+      z-index: 100;
+      visibility: hidden;
+    }
+
+    .navbar__menu--open {
+      transform: translateX(0);
+      visibility: visible;
+    }
+
+    .navbar__link {
+      font-size: 32px;
+    }
+  }
+
+  @media (min-width: 769px) {
+    .navbar__menu {
+      visibility: visible !important;
+      transform: none !important;
+    }
+  }
+</style>

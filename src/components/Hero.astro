@@ -1,0 +1,103 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<section class:list={['hero', className]}>
+  <div class="hero__boom">
+    <svg viewBox="0 0 2426 1694" fill="none" xmlns="http://www.w3.org/2000/svg" class="hero__boom-graphic">
+      <path d="M2426 847C2426 1314.71 1885.18 1694 1213 1694C540.821 1694 0 1314.71 0 847C0 379.288 540.821 0 1213 0C1885.18 0 2426 379.288 2426 847Z" fill="url(#hero-gradient)"/>
+      <defs>
+        <linearGradient id="hero-gradient" x1="1213" y1="0" x2="1213" y2="1694" gradientUnits="userSpaceOnUse">
+          <stop stop-color="var(--color-black)"/>
+          <stop offset="1" stop-color="var(--color-black)" stop-opacity="0.8"/>
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
+
+  <div class="hero__content">
+    <h1 class="hero__title">
+      <span class="hero__title-line">Make the</span>
+      <span class="hero__title-line">future real.</span>
+    </h1>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    width: 100%;
+    height: 920px;
+    background-color: var(--surface-standard);
+    overflow: hidden;
+  }
+
+  .hero__boom {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(calc(-50% + 260px), -50%);
+    width: 2426px;
+    height: 1694px;
+    pointer-events: none;
+  }
+
+  .hero__boom-graphic {
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero__content {
+    position: absolute;
+    left: 220px;
+    top: 262px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 1000px;
+  }
+
+  .hero__title {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    color: var(--text-on-solid);
+  }
+
+  .hero__title-line {
+    font-family: var(--font-primary);
+    font-size: var(--display-huge-size);
+    font-weight: var(--display-huge-weight);
+    line-height: var(--display-huge-line-height);
+    letter-spacing: var(--display-huge-letter-spacing);
+    display: flex;
+    align-items: center;
+    gap: 30px;
+  }
+
+  @media (max-width: 1200px) {
+    .hero__content {
+      left: var(--page-margin);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      height: 600px;
+    }
+
+    .hero__content {
+      top: 150px;
+    }
+
+    .hero__title-line {
+      font-size: 80px;
+      line-height: 80px;
+      letter-spacing: -0.8px;
+    }
+  }
+</style>

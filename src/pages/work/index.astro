@@ -1,0 +1,55 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Section from '../../components/Section.astro';
+import TextBlock from '../../components/TextBlock.astro';
+import CaseStudyCard from '../../components/CaseStudyCard.astro';
+
+const caseStudies = await getCollection('case-studies');
+const sortedCaseStudies = caseStudies.sort((a, b) =>
+  new Date(b.data.publishedAt).getTime() - new Date(a.data.publishedAt).getTime()
+);
+---
+
+<BaseLayout
+  title="Our Work - Big Motive"
+  description="From government and health to enterprise and media, we take on challenges in public services, healthcare, sustainability, and technology."
+>
+  <Section variant="standard">
+    <TextBlock
+      title="Our work"
+      description="From government and health to enterprise and media, we take on challenges in public services, healthcare, sustainability, and technology. Our work showcases how we use design to cut through complexity and create solutions that work and scale."
+    />
+  </Section>
+
+  <Section variant="light">
+    <div class="work-grid">
+      {sortedCaseStudies.map((study) => (
+        <CaseStudyCard
+          title={study.data.title}
+          client={study.data.client}
+          description={study.data.description}
+          category={study.data.services?.[0] || 'Service'}
+          image={study.data.heroImage}
+          href={`/work/${study.slug}`}
+        />
+      ))}
+    </div>
+  </Section>
+</BaseLayout>
+
+<style>
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--content-gap-large);
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    .work-grid {
+      grid-template-columns: 1fr;
+      gap: var(--content-gap-medium);
+    }
+  }
+</style>

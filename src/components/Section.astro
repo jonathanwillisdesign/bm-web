@@ -1,0 +1,32 @@
+---
+interface Props {
+  variant?: 'standard' | 'solid' | 'alternative' | 'accent' | 'light';
+  padding?: 'default' | 'small';
+  class?: string;
+}
+
+const {
+  variant = 'standard',
+  padding = 'default',
+  class: className
+} = Astro.props;
+
+const surfaceClass = `surface-${variant}`;
+const paddingClass = padding === 'small' ? 'section-padding-small' : 'section-padding';
+---
+
+<section class:list={[surfaceClass, paddingClass, className]}>
+  <div class="content-container">
+    <slot />
+  </div>
+</section>
+
+<style>
+  section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+</style>

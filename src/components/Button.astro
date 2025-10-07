@@ -1,0 +1,70 @@
+---
+interface Props {
+  variant?: 'primary' | 'secondary';
+  href?: string;
+  class?: string;
+}
+
+const { variant = 'primary', href, class: className } = Astro.props;
+const Tag = href ? 'a' : 'button';
+---
+
+<Tag
+  class:list={['button', `button--${variant}`, className]}
+  href={href}
+>
+  <span class="button__text">
+    <slot />
+  </span>
+  <svg class="button__icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M4 12H20M20 12L14 6M20 12L14 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</Tag>
+
+<style>
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 15px 20px;
+    border-radius: var(--radius-full);
+    font-family: var(--font-primary);
+    font-size: var(--label-medium-size);
+    font-weight: var(--label-medium-weight);
+    line-height: var(--label-medium-line-height);
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform var(--transition-fast), opacity var(--transition-fast);
+  }
+
+  .button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+
+  .button:active {
+    transform: translateY(0);
+  }
+
+  .button--primary {
+    background-color: var(--surface-solid);
+    color: var(--text-on-solid);
+  }
+
+  .button--secondary {
+    background-color: var(--surface-standard);
+    color: var(--text-standard);
+    border: 2px solid var(--border-bold);
+  }
+
+  .button__text {
+    line-height: 1.25;
+  }
+
+  .button__icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+</style>

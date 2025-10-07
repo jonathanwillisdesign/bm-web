@@ -1,0 +1,175 @@
+/* Design System Tokens - Extracted from Figma */
+
+:root {
+  /* Colors */
+  --color-black: #231f20;
+  --color-white: #ffffff;
+  --color-yellow: #ffd249;
+  --color-grey-light: #f4f4f4;
+  --color-grey-mid: #787778;
+  --color-grey-dark: #463f41;
+  --color-beige: #f2ece5;
+  --color-blue-light: #8fb6ff;
+
+  /* Surface Colors */
+  --surface-standard: var(--color-white);
+  --surface-solid: var(--color-black);
+  --surface-alternative: var(--color-beige);
+  --surface-accent: var(--color-yellow);
+  --surface-light: var(--color-grey-light);
+
+  /* Text Colors */
+  --text-standard: var(--color-black);
+  --text-on-solid: var(--color-white);
+  --text-alternative: var(--color-grey-mid);
+
+  /* Border Colors */
+  --border-bold: var(--color-black);
+  --border-standard: var(--color-grey-dark);
+
+  /* Typography - Font Families */
+  --font-primary: 'Funnel Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-hand: 'Figma Hand', cursive;
+
+  /* Typography - Display */
+  --display-huge-size: 180px;
+  --display-huge-weight: 300;
+  --display-huge-line-height: 160px;
+  --display-huge-letter-spacing: -1.8px;
+
+  /* Typography - Heading */
+  --heading-medium-size: 40px;
+  --heading-medium-weight: 700;
+  --heading-medium-line-height: 1;
+  --heading-medium-letter-spacing: -0.4px;
+
+  /* Typography - Body Large */
+  --body-large-size: 24px;
+  --body-large-weight: 400;
+  --body-large-line-height: 1.3;
+  --body-large-letter-spacing: -0.24px;
+
+  --body-large-bold-weight: 700;
+
+  /* Typography - Body Medium */
+  --body-medium-size: 20px;
+  --body-medium-weight: 400;
+  --body-medium-line-height: 1.3;
+  --body-medium-letter-spacing: -0.2px;
+
+  /* Typography - Label */
+  --label-medium-size: 20px;
+  --label-medium-weight: 700;
+  --label-medium-line-height: 1.25;
+
+  /* Spacing */
+  --page-margin: 40px;
+  --stack-margin: 24px;
+  --section-padding-vertical: 120px;
+  --section-padding-small: 80px;
+  --content-gap-large: 80px;
+  --content-gap-medium: 40px;
+  --content-gap-small: 20px;
+  --content-gap-tiny: 10px;
+
+  /* Layout */
+  --max-content-width: 1000px;
+  --page-width: 1440px;
+
+  /* Border Radius */
+  --radius-full: 9999px;
+  --radius-medium: 8px;
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-standard: 0.3s ease;
+}
+
+/* Typography Classes */
+.display-huge {
+  font-family: var(--font-primary);
+  font-size: var(--display-huge-size);
+  font-weight: var(--display-huge-weight);
+  line-height: var(--display-huge-line-height);
+  letter-spacing: var(--display-huge-letter-spacing);
+}
+
+.heading-medium {
+  font-family: var(--font-primary);
+  font-size: var(--heading-medium-size);
+  font-weight: var(--heading-medium-weight);
+  line-height: var(--heading-medium-line-height);
+  letter-spacing: var(--heading-medium-letter-spacing);
+}
+
+.body-large {
+  font-family: var(--font-primary);
+  font-size: var(--body-large-size);
+  font-weight: var(--body-large-weight);
+  line-height: var(--body-large-line-height);
+  letter-spacing: var(--body-large-letter-spacing);
+}
+
+.body-large-bold {
+  font-family: var(--font-primary);
+  font-size: var(--body-large-size);
+  font-weight: var(--body-large-bold-weight);
+  line-height: var(--body-large-line-height);
+  letter-spacing: var(--body-large-letter-spacing);
+}
+
+.body-medium {
+  font-family: var(--font-primary);
+  font-size: var(--body-medium-size);
+  font-weight: var(--body-medium-weight);
+  line-height: var(--body-medium-line-height);
+  letter-spacing: var(--body-medium-letter-spacing);
+}
+
+.label-medium {
+  font-family: var(--font-primary);
+  font-size: var(--label-medium-size);
+  font-weight: var(--label-medium-weight);
+  line-height: var(--label-medium-line-height);
+  text-transform: uppercase;
+}
+
+/* Utility Classes */
+.section-padding {
+  padding: var(--section-padding-vertical) var(--page-margin);
+}
+
+.section-padding-small {
+  padding: var(--section-padding-small) var(--page-margin);
+}
+
+.content-container {
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+  width: 100%;
+}
+
+.surface-standard {
+  background-color: var(--surface-standard);
+  color: var(--text-standard);
+}
+
+.surface-solid {
+  background-color: var(--surface-solid);
+  color: var(--text-on-solid);
+}
+
+.surface-alternative {
+  background-color: var(--surface-alternative);
+  color: var(--text-standard);
+}
+
+.surface-accent {
+  background-color: var(--surface-accent);
+  color: var(--text-standard);
+}
+
+.surface-light {
+  background-color: var(--surface-light);
+  color: var(--text-standard);
+}

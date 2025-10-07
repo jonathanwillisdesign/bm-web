@@ -1,0 +1,140 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import TextBlock from '../components/TextBlock.astro';
+
+const teamMembers = await getCollection('team');
+const featuredTeam = teamMembers.filter(member => member.data.featured);
+const services = await getCollection('services');
+---
+
+<BaseLayout
+  title="About Us - Big Motive"
+  description="We're an award-winning team of designers, researchers, and strategists based in Belfast and Dublin."
+>
+  <Section variant="standard">
+    <TextBlock
+      title="About Big Motive"
+      description="We're an award-winning team of designers, researchers, and strategists based in Belfast and Dublin, working across Ireland, the UK, Europe, and the USA. We design accessible digital solutions that help people and organisations excel."
+    />
+  </Section>
+
+  <Section variant="light">
+    <div class="content-section">
+      <h2 class="heading-medium">Who We Are</h2>
+      <p class="body-large">
+        We're a team passionate about creating digital solutions that make a real difference. Our approach combines user research, strategic thinking, and creative problem-solving to deliver products and services that work for everyone.
+      </p>
+    </div>
+  </Section>
+
+  {services.length > 0 && (
+    <Section variant="standard">
+      <div class="content-section">
+        <h2 class="heading-medium">Our Services</h2>
+        <div class="services-grid">
+          {services
+            .sort((a, b) => a.data.order - b.data.order)
+            .map((service) => (
+              <article class="service-card">
+                {service.data.icon && <div class="service-icon body-large-bold">{service.data.icon}</div>}
+                <h3 class="body-large-bold">{service.data.title}</h3>
+                <p class="body-medium">{service.data.description}</p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </Section>
+  )}
+
+  {featuredTeam.length > 0 && (
+    <Section variant="light">
+      <div class="content-section">
+        <h2 class="heading-medium">Meet the Team</h2>
+        <div class="team-grid">
+          {featuredTeam.map((member) => (
+            <article class="team-card">
+              {member.data.image && (
+                <div class="team-image">
+                  <img src={member.data.image} alt={member.data.name} />
+                </div>
+              )}
+              <h3 class="body-large-bold">{member.data.name}</h3>
+              <p class="body-medium team-role">{member.data.role}</p>
+              <p class="body-medium">{member.data.bio}</p>
+              {member.data.expertise && member.data.expertise.length > 0 && (
+                <div class="team-expertise">
+                  <strong class="body-medium">Expertise:</strong>
+                  <span class="body-medium"> {member.data.expertise.join(', ')}</span>
+                </div>
+              )}
+            </article>
+          ))}
+        </div>
+      </div>
+    </Section>
+  )}
+</BaseLayout>
+
+<style>
+  .content-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--content-gap-medium);
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--content-gap-medium);
+    width: 100%;
+  }
+
+  .service-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--content-gap-small);
+  }
+
+  .service-icon {
+    font-size: 48px;
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--content-gap-medium);
+    width: 100%;
+  }
+
+  .team-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--content-gap-tiny);
+  }
+
+  .team-image {
+    width: 100%;
+    aspect-ratio: 1;
+    overflow: hidden;
+    background-color: var(--surface-light);
+    margin-bottom: var(--content-gap-small);
+  }
+
+  .team-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .team-role {
+    color: var(--text-alternative);
+  }
+
+  .team-expertise {
+    margin-top: var(--content-gap-tiny);
+  }
+</style>

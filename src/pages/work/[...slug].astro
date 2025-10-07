@@ -1,0 +1,277 @@
+---
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Section from '../../components/Section.astro';
+import Button from '../../components/Button.astro';
+
+export async function getStaticPaths() {
+  const caseStudies = await getCollection('case-studies');
+  return caseStudies.map((study) => ({
+    params: { slug: study.slug },
+    props: study,
+  }));
+}
+
+type Props = CollectionEntry<'case-studies'>;
+
+const study = Astro.props;
+const { Content } = await study.render();
+
+const services = study.data.services ? await getCollection('services', ({ id }) =>
+  study.data.services?.includes(id)
+) : [];
+
+const teamMembers = study.data.team ? await getCollection('team', ({ id }) =>
+  study.data.team?.includes(id)
+) : [];
+---
+
+<BaseLayout
+  title={`${study.data.title} - Big Motive`}
+  description={study.data.description}
+>
+  {study.data.heroImage && (
+    <div class="hero-image">
+      <img src={study.data.heroImage} alt={study.data.title} />
+    </div>
+  )}
+
+  <Section variant="standard">
+    <div class="case-study-header">
+      <h1 class="heading-medium">{study.data.title}</h1>
+      <p class="body-large case-study-description">{study.data.description}</p>
+
+      <div class="case-study-meta">
+        <div class="meta-item">
+          <span class="body-medium meta-label">Client</span>
+          <span class="body-large-bold">{study.data.client}</span>
+        </div>
+        {study.data.duration && (
+          <div class="meta-item">
+            <span class="body-medium meta-label">Duration</span>
+            <span class="body-large-bold">{study.data.duration}</span>
+          </div>
+        )}
+        {study.data.services && study.data.services.length > 0 && (
+          <div class="meta-item">
+            <span class="body-medium meta-label">Services</span>
+            <span class="body-large-bold">{study.data.services.join(', ')}</span>
+          </div>
+        )}
+      </div>
+    </div>
+  </Section>
+
+  {study.data.outcome && (
+    <Section variant="accent">
+      <div class="outcome-section">
+        <h2 class="body-large-bold">Outcome</h2>
+        <p class="body-large">{study.data.outcome}</p>
+      </div>
+    </Section>
+  )}
+
+  <Section variant="light">
+    <article class="case-study-content">
+      <Content />
+    </article>
+  </Section>
+
+  {services.length > 0 && (
+    <Section variant="standard">
+      <div class="services-used">
+        <h2 class="heading-medium">Services Used</h2>
+        <div class="services-grid">
+          {services.map((service) => (
+            <div class="service-item">
+              <h3 class="body-large-bold">{service.data.title}</h3>
+              <p class="body-medium">{service.data.shortDescription}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </Section>
+  )}
+
+  {teamMembers.length > 0 && (
+    <Section variant="light">
+      <div class="team-section">
+        <h2 class="heading-medium">Team Members</h2>
+        <div class="team-grid">
+          {teamMembers.map((member) => (
+            <div class="team-member">
+              {member.data.image && (
+                <div class="team-member-image">
+                  <img src={member.data.image} alt={member.data.name} />
+                </div>
+              )}
+              <h3 class="body-large-bold">{member.data.name}</h3>
+              <p class="body-medium team-role">{member.data.role}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </Section>
+  )}
+
+  <Section variant="standard">
+    <div class="back-navigation">
+      <Button variant="secondary" href="/work">← Back to Work</Button>
+    </div>
+  </Section>
+</BaseLayout>
+
+<style>
+  .hero-image {
+    width: 100%;
+    max-height: 600px;
+    overflow: hidden;
+    background-color: var(--surface-light);
+  }
+
+  .hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .case-study-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--content-gap-medium);
+    width: 100%;
+  }
+
+  .case-study-description {
+    max-width: 800px;
+  }
+
+  .case-study-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--content-gap-medium);
+    padding-top: var(--content-gap-small);
+    border-top: 2px solid var(--border-standard);
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--content-gap-tiny);
+  }
+
+  .meta-label {
+    color: var(--text-alternative);
+  }
+
+  .outcome-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--content-gap-small);
+    width: 100%;
+  }
+
+  .case-study-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--content-gap-medium);
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .case-study-content :global(h1),
+  .case-study-content :global(h2),
+  .case-study-content :global(h3) {
+    margin-top: var(--content-gap-medium);
+  }
+
+  .case-study-content :global(h1) {
+    font-size: var(--heading-medium-size);
+    font-weight: var(--heading-medium-weight);
+    line-height: var(--heading-medium-line-height);
+    letter-spacing: var(--heading-medium-letter-spacing);
+  }
+
+  .case-study-content :global(h2) {
+    font-size: var(--body-large-size);
+    font-weight: var(--body-large-bold-weight);
+    line-height: var(--body-large-line-height);
+    letter-spacing: var(--body-large-letter-spacing);
+  }
+
+  .case-study-content :global(p) {
+    font-size: var(--body-medium-size);
+    font-weight: var(--body-medium-weight);
+    line-height: var(--body-medium-line-height);
+    letter-spacing: var(--body-medium-letter-spacing);
+  }
+
+  .case-study-content :global(img) {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-medium);
+  }
+
+  .services-used,
+  .team-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--content-gap-medium);
+    width: 100%;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--content-gap-medium);
+  }
+
+  .service-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--content-gap-tiny);
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--content-gap-medium);
+  }
+
+  .team-member {
+    display: flex;
+    flex-direction: column;
+    gap: var(--content-gap-tiny);
+  }
+
+  .team-member-image {
+    width: 100%;
+    aspect-ratio: 1;
+    overflow: hidden;
+    background-color: var(--surface-light);
+    border-radius: var(--radius-medium);
+    margin-bottom: var(--content-gap-small);
+  }
+
+  .team-member-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .team-role {
+    color: var(--text-alternative);
+  }
+
+  .back-navigation {
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    .case-study-meta {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
