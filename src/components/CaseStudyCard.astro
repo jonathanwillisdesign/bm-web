@@ -1,4 +1,6 @@
 ---
+import { Icon } from 'astro-icon/components';
+
 interface Props {
   title: string;
   client: string;
@@ -27,9 +29,7 @@ const { title, client, description, category, image, href, class: className } = 
         <p class="case-study-card__category body-medium">{category}</p>
       </div>
 
-      <svg class="case-study-card__icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
-        <path d="M4 12H20M20 12L14 6M20 12L14 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
+      <Icon name="lucide:arrow-right" class="case-study-card__icon" />
     </div>
   </a>
 </article>
