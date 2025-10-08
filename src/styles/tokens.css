@@ -1,91 +1,225 @@
 /* Design System Tokens - Extracted from Figma */
 
 :root {
-  /* Colors */
-  --color-black: #231f20;
-  --color-white: #ffffff;
-  --color-yellow: #ffd249;
-  --color-grey-light: #f4f4f4;
-  --color-grey-mid: #787778;
-  --color-grey-dark: #463f41;
-  --color-beige: #f2ece5;
-  --color-blue-light: #8fb6ff;
+  /* ==================== */
+  /* 1 - BRAND COLOURS    */
+  /* ==================== */
 
-  /* Surface Colors */
-  --surface-standard: var(--color-white);
-  --surface-solid: var(--color-black);
-  --surface-alternative: var(--color-beige);
-  --surface-accent: var(--color-yellow);
-  --surface-light: var(--color-grey-light);
+  /* Neutral */
+  --color-neutral-white: #ffffff;
+  --color-neutral-beige: #f2ece5;
+  --color-neutral-grey-10: #f4f4f4;
+  --color-neutral-grey-25: #e7e7e7;
+  --color-neutral-grey-30: #bebbbb;
+  --color-neutral-grey-40: #787778;
+  --color-neutral-grey-50: #463f41;
+  --color-neutral-grey-100: #231f20;
 
-  /* Text Colors */
-  --text-standard: var(--color-black);
-  --text-on-solid: var(--color-white);
-  --text-alternative: var(--color-grey-mid);
+  /* Blue */
+  --color-blue-300: #517bc9;
+  --color-blue-200: #8fb6ff;
+  --color-blue-100: #b6cfff;
+  --color-blue-50: #c9dcff;
+  --color-blue-25: #e2ecff;
+  --color-blue-10: #f7faff;
 
-  /* Border Colors */
-  --border-bold: var(--color-black);
-  --border-standard: var(--color-grey-dark);
+  /* Red */
+  --color-red-300: #b02d2f;
+  --color-red-200: #dc373a;
+  --color-red-100: #f0837b;
+  --color-red-50: #fcc2bc;
+  --color-red-25: #ffe7e4;
+  --color-red-10: #fff5f4;
 
-  /* Typography - Font Families */
+  /* Burgundy */
+  --color-burgundy-300: #67002c;
+  --color-burgundy-200: #91013e;
+  --color-burgundy-100: #c72d6f;
+  --color-burgundy-50: #db538d;
+  --color-burgundy-25: #ffc1db;
+  --color-burgundy-10: #fff0f6;
+
+  /* Orange */
+  --color-orange-300: #c66100;
+  --color-orange-200: #e9892d;
+  --color-orange-100: #ffa34b;
+  --color-orange-50: #ffc68e;
+  --color-orange-25: #ffe3c8;
+  --color-orange-10: #fff7f0;
+
+  /* Yellow */
+  --color-yellow-300: #ffc105;
+  --color-yellow-200: #ffd249;
+  --color-yellow-100: #ffe187;
+  --color-yellow-50: #ffeaa9;
+  --color-yellow-25: #fff2ca;
+  --color-yellow-10: #fffaec;
+
+  /* Coral */
+  --color-coral-300: #b48888;
+  --color-coral-200: #f1acad;
+  --color-coral-100: #fbd2d3;
+  --color-coral-50: #fde9e9;
+  --color-coral-25: #fbeeee;
+  --color-coral-10: #fffbfb;
+
+  /* ==================== */
+  /* 2 - SEMANTIC TOKENS  */
+  /* ==================== */
+
+  /* Default Theme (Default Mode) */
+  --surface-standard: var(--color-neutral-white);
+  --surface-alternative: var(--color-blue-10);
+  --surface-solid: var(--color-neutral-grey-100);
+  --surface-overlay: rgba(0, 0, 0, 0.75);
+
+  --text-standard: var(--color-neutral-grey-100);
+  --text-alternative: var(--color-neutral-grey-40);
+  --text-on-solid: var(--color-neutral-white);
+
+  --icon-standard: var(--color-neutral-grey-100);
+  --icon-alternative: var(--color-neutral-grey-40);
+  --icon-on-solid: var(--color-neutral-white);
+
+  --border-standard: var(--color-neutral-grey-25);
+  --border-bold: var(--color-neutral-grey-100);
+
+  /* ==================== */
+  /* 3 - SPACING          */
+  /* ==================== */
+
+  --page-width: 1440px;
+  --page-margin: 40px;
+  --max-width: 1000px;
+
+  /* Component Spacing */
+  --stack-margin: 24px;
+  --section-padding-vertical: 120px;
+  --section-padding-small: 80px;
+  --content-gap-xlarge: 80px;
+  --content-gap-large: 60px;
+  --content-gap-medium: 40px;
+  --content-gap-small: 20px;
+  --content-gap-tiny: 10px;
+
+  /* ==================== */
+  /* 4 - TYPOGRAPHY       */
+  /* ==================== */
+
+  /* Font Families */
   --font-primary: 'Funnel Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-hand: 'Figma Hand', cursive;
 
-  /* Typography - Display */
+  /* Display */
   --display-huge-size: 180px;
   --display-huge-weight: 300;
   --display-huge-line-height: 160px;
   --display-huge-letter-spacing: -1.8px;
 
-  /* Typography - Heading */
+  /* Headings */
+  --heading-large-size: 45px;
+  --heading-large-weight: 700;
+  --heading-large-line-height: 1.2;
+  --heading-large-letter-spacing: -0.45px;
+
   --heading-medium-size: 40px;
   --heading-medium-weight: 700;
   --heading-medium-line-height: 1;
   --heading-medium-letter-spacing: -0.4px;
 
-  /* Typography - Body Large */
+  --heading-small-size: 36px;
+  --heading-small-weight: 700;
+  --heading-small-line-height: 1.3;
+  --heading-small-letter-spacing: -0.36px;
+
+  /* Body Extra Large */
+  --body-xlarge-size: 28px;
+  --body-xlarge-weight: 400;
+  --body-xlarge-line-height: 1.2;
+  --body-xlarge-letter-spacing: -0.28px;
+
+  /* Body Large */
   --body-large-size: 24px;
   --body-large-weight: 400;
+  --body-large-bold-weight: 700;
   --body-large-line-height: 1.3;
   --body-large-letter-spacing: -0.24px;
 
-  --body-large-bold-weight: 700;
-
-  /* Typography - Body Medium */
+  /* Body Medium */
   --body-medium-size: 20px;
   --body-medium-weight: 400;
+  --body-medium-bold-weight: 700;
   --body-medium-line-height: 1.3;
   --body-medium-letter-spacing: -0.2px;
 
-  /* Typography - Label */
+  /* Body Small */
+  --body-small-size: 18px;
+  --body-small-weight: 300;
+  --body-small-bold-weight: 700;
+  --body-small-line-height: 1.2;
+  --body-small-letter-spacing: -0.18px;
+
+  /* Labels */
   --label-medium-size: 20px;
   --label-medium-weight: 700;
   --label-medium-line-height: 1.25;
 
-  /* Spacing */
-  --page-margin: 40px;
-  --stack-margin: 24px;
-  --section-padding-vertical: 120px;
-  --section-padding-small: 80px;
-  --content-gap-large: 80px;
-  --content-gap-medium: 40px;
-  --content-gap-small: 20px;
-  --content-gap-tiny: 10px;
-
-  /* Layout */
-  --max-content-width: 1000px;
-  --page-width: 1440px;
+  /* ==================== */
+  /* 5 - OTHER            */
+  /* ==================== */
 
   /* Border Radius */
   --radius-full: 9999px;
   --radius-medium: 8px;
+  --radius-small: 4px;
 
   /* Transitions */
   --transition-fast: 0.2s ease;
   --transition-standard: 0.3s ease;
+  --transition-slow: 0.5s ease;
 }
 
-/* Typography Classes */
+/* ==================== */
+/* THEME MODES          */
+/* ==================== */
+
+/* Subtle Theme */
+[data-theme="subtle"] {
+  --surface-standard: var(--color-neutral-grey-10);
+  --surface-alternative: var(--color-neutral-beige);
+  --surface-solid: var(--color-neutral-grey-100);
+}
+
+/* Bold Theme */
+[data-theme="bold"] {
+  --surface-standard: var(--color-yellow-200);
+  --surface-alternative: var(--color-blue-200);
+  --surface-solid: var(--color-neutral-grey-100);
+  --border-standard: var(--color-neutral-white);
+}
+
+/* Inverted Theme */
+[data-theme="inverted"] {
+  --surface-standard: var(--color-neutral-grey-100);
+  --surface-alternative: var(--color-neutral-grey-50);
+  --surface-solid: var(--color-neutral-white);
+
+  --text-standard: var(--color-neutral-white);
+  --text-alternative: var(--color-neutral-grey-25);
+  --text-on-solid: var(--color-neutral-grey-100);
+
+  --icon-standard: var(--color-neutral-white);
+  --icon-alternative: var(--color-neutral-grey-10);
+  --icon-on-solid: var(--color-neutral-grey-100);
+
+  --border-standard: var(--color-neutral-grey-50);
+  --border-bold: var(--color-neutral-white);
+}
+
+/* ==================== */
+/* TYPOGRAPHY CLASSES   */
+/* ==================== */
+
 .display-huge {
   font-family: var(--font-primary);
   font-size: var(--display-huge-size);
@@ -94,12 +228,36 @@
   letter-spacing: var(--display-huge-letter-spacing);
 }
 
+.heading-large {
+  font-family: var(--font-primary);
+  font-size: var(--heading-large-size);
+  font-weight: var(--heading-large-weight);
+  line-height: var(--heading-large-line-height);
+  letter-spacing: var(--heading-large-letter-spacing);
+}
+
 .heading-medium {
   font-family: var(--font-primary);
   font-size: var(--heading-medium-size);
   font-weight: var(--heading-medium-weight);
   line-height: var(--heading-medium-line-height);
   letter-spacing: var(--heading-medium-letter-spacing);
+}
+
+.heading-small {
+  font-family: var(--font-primary);
+  font-size: var(--heading-small-size);
+  font-weight: var(--heading-small-weight);
+  line-height: var(--heading-small-line-height);
+  letter-spacing: var(--heading-small-letter-spacing);
+}
+
+.body-xlarge {
+  font-family: var(--font-primary);
+  font-size: var(--body-xlarge-size);
+  font-weight: var(--body-xlarge-weight);
+  line-height: var(--body-xlarge-line-height);
+  letter-spacing: var(--body-xlarge-letter-spacing);
 }
 
 .body-large {
@@ -126,6 +284,30 @@
   letter-spacing: var(--body-medium-letter-spacing);
 }
 
+.body-medium-bold {
+  font-family: var(--font-primary);
+  font-size: var(--body-medium-size);
+  font-weight: var(--body-medium-bold-weight);
+  line-height: var(--body-medium-line-height);
+  letter-spacing: var(--body-medium-letter-spacing);
+}
+
+.body-small {
+  font-family: var(--font-primary);
+  font-size: var(--body-small-size);
+  font-weight: var(--body-small-weight);
+  line-height: var(--body-small-line-height);
+  letter-spacing: var(--body-small-letter-spacing);
+}
+
+.body-small-bold {
+  font-family: var(--font-primary);
+  font-size: var(--body-small-size);
+  font-weight: var(--body-small-bold-weight);
+  line-height: var(--body-small-line-height);
+  letter-spacing: var(--body-small-letter-spacing);
+}
+
 .label-medium {
   font-family: var(--font-primary);
   font-size: var(--label-medium-size);
@@ -134,7 +316,10 @@
   text-transform: uppercase;
 }
 
-/* Utility Classes */
+/* ==================== */
+/* UTILITY CLASSES      */
+/* ==================== */
+
 .section-padding {
   padding: var(--section-padding-vertical) var(--page-margin);
 }
@@ -144,11 +329,12 @@
 }
 
 .content-container {
-  max-width: var(--max-content-width);
+  max-width: var(--max-width);
   margin: 0 auto;
   width: 100%;
 }
 
+/* Theme utility classes */
 .surface-standard {
   background-color: var(--surface-standard);
   color: var(--text-standard);
@@ -164,12 +350,23 @@
   color: var(--text-standard);
 }
 
-.surface-accent {
-  background-color: var(--surface-accent);
+.surface-light {
+  background-color: var(--color-neutral-grey-10);
   color: var(--text-standard);
 }
 
-.surface-light {
-  background-color: var(--surface-light);
-  color: var(--text-standard);
+/* ==================== */
+/* RESPONSIVE           */
+/* ==================== */
+
+@media (max-width: 810px) {
+  :root {
+    --page-width: 810px;
+  }
+}
+
+@media (max-width: 375px) {
+  :root {
+    --page-width: 375px;
+  }
 }

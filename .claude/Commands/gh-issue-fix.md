@@ -6,6 +6,6 @@ Follow these steps:
 2. Understand the problem described in the issue
 3. Search the codebase for relevant files
 4. Implement the necessary changes to fix the issue
-5. Create a descriptive commit message
+5. Create a descriptive commit message and push to github
 
 Remember to use the GitHub CLI (`gh`) for all GitHub-related tasks.
